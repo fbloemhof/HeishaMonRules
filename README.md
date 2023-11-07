@@ -10,7 +10,7 @@ The first section of your ruleset. Here you can confiugre some settings and are 
 
 <details>
 
-<summary>on System#Boot</summary>
+<summary>System#Boot</summary>
 
 ```LUA
 on System#Boot then
@@ -33,7 +33,7 @@ end
 
 ### syncOpenTherm
 
-This function synchronizes the heatpump values with your OpenTherm thermostat and back.
+This function synchronizes the heatpump values with your OpenTherm thermostat.
 
 <details>
 
@@ -78,7 +78,7 @@ end
 
 ### calcHeatCurve
 
-This function calculates the current target temperature based on the configured Heat Curve.
+This function calculates the current target temperature based on the configured Heat Curve When using `syncOpenTherm` the `#maxTa` value will be synced to the thermostat as `?maxTSet`.
 
 <details>
 
