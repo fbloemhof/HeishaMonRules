@@ -18,17 +18,21 @@ The first section of your ruleset. Here you can confiugre some settings and are 
 
 ```LUA
 on System#Boot then
-    #allowSyncOT = 1;
-    #allowCalcHeatCurve = 1;
+    #allowSyncOT = 0;
+    #allowCalcHeatCurve = 0;
+    #allowSetQuietMode = 0;
 
     #chEnable = -1;
     #maxTa = -1;
+    #silentModeHelper = 1;
+    #silentModePrevious = -1;
     setTimer(1,10);
 end
 
 on timer=1 then
     syncOpenTherm();
     calcHeatCurve();
+    setQuietMode();
     setTimer(1,15);
 end
 ```
@@ -104,6 +108,53 @@ on calcHeatCurve then
                     #maxTa = $Ta2;
                 else
                     #maxTa = 1 + floor(0.9 + $Ta1 + (($Tb1 - $Tb3) * ($Ta2 - $Ta1) / ($Tb1 - $Tb2)));
+                end
+            end
+        end
+    end
+end
+```
+
+</details>
+
+### setQuietMode
+
+This function sets the quiet mode based on
+
+<details>
+
+<summary>setQuietMode</summary>
+
+```LUA
+on timer=2 then
+    #silentModeHelper = 1;
+    #silentMode = 0;
+end
+
+on setQuietMode then
+    if #allowSetQuietMode == 1 then
+        if isset(@Outside_Temp) && isset(@Heatpump_State) then
+            if #silentModeHelper == 1 then
+                if @Outside_Temp < 2 then
+                    if %hour > 22 || %hour < 7 then
+                        #silentMode = 1;
+                    else
+                        #silentMode = 0;
+                    end
+                end
+                if @Outside_Temp < 5 then
+                    #silentMode = 1;
+                end
+                if @Outside_Temp < 10 then
+                    #silentMode = 2;
+                else
+                    #silentMode = 3;
+                end
+                if #silentModePrevious != #silentMode && @Heatpump_State == 1 then
+                    setTimer(2, 900);
+                    #silentModeHelper = 0;
+                    #silentModePrevious = #silentMode;
+                    @SetQuietMode = #silentMode;
                 end
             end
         end
