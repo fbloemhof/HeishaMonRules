@@ -6,13 +6,14 @@ on calcHeatCurve then
             $Ta2 = @Z1_Heat_Curve_Target_High_Temp;
             $Tb2 = @Z1_Heat_Curve_Outside_Low_Temp;
             $Tb3 = @Outside_Temp;
-        if $Tb3 >= $Tb1 then
-            #maxTa = $Ta1;
-        else
-            if $Tb3 <= $Tb2 then
-                #maxTa = $Ta2;
+            if $Tb3 >= $Tb1 then
+                #maxTa = $Ta1;
             else
-                #maxTa = 1 + floor(0.9 + $Ta1 + (($Tb1 - $Tb3) * ($Ta2 - $Ta1) / ($Tb1 - $Tb2)));
+                if $Tb3 <= $Tb2 then
+                    #maxTa = $Ta2;
+                else
+                    #maxTa = 1 + floor(0.9 + $Ta1 + (($Tb1 - $Tb3) * ($Ta2 - $Ta1) / ($Tb1 - $Tb2)));
+                end
             end
         end
     end
