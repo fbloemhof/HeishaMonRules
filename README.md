@@ -2,7 +2,7 @@
 
 ## Some introduction
 
-Here you find a collection of different rules to use with the [HeishaMonitor](https://github.com/Egyras/HeishaMon). 
+Here you find a collection of different rules to use with the [HeishaMon](https://github.com/Egyras/HeishaMon). 
 
 Special thanks to [@CurlyMoo](https://github.com/CurlyMoo) and [@blb4github](https://github.com/blb4github). Most of the rules are inspired by their work.
 
@@ -15,7 +15,7 @@ You can pick and mix the functions you like. To start you always need the [`Syst
 
 ### on System#Boot
 
-The first section of your ruleset. Here you can confiugre some settings and are the global variables defined. Default all functions are disabled (the `#allow` variabled), you can enable them by setting `0` to `1`.
+This is the first section of the ruleset. Here you can confiugre some settings and are global variables defined. Default all functions are disabled (the `#allow*` variables), you can enable them by setting `0` to `1`.
 
 The second part of the global variables are mostly helpers. Where possible the are defaulted to `-1` so you can monitor the results of the functions easily.
 
@@ -100,7 +100,9 @@ end
 
 ### calcHeatCurve
 
-This function calculates the current target temperature based on the configured Heat Curve When using `syncOpenTherm` the `#maxTa` value will be synced to the thermostat as `?maxTSet`.
+This function calculates the target temperature based on the configured Heat Curve 
+
+When using `syncOpenTherm` the `#maxTa` value will be synced to the thermostat as `?maxTSet`.
 
 <details>
 
