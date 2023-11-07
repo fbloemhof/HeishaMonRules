@@ -9,7 +9,7 @@ Special thanks to [@CurlyMoo](https://github.com/CurlyMoo) and [@blb4github](htt
 > [!WARNING]  
 > Usage of the rules is at your own risk.
 
-## Instuctions
+## Instructions
 
 You can pick and mix the functions you like. To start you always need the [`System#Boot`](#on-systemboot) section, this is where the basics are configured.
 
@@ -135,7 +135,7 @@ end
 
 This function sets the quiet mode based on a combination of the current time and the value of `@Outside_Temp`. It will help the heatpump running more stable and in low frequencies. 
 
-> [!WARNING]  
+> [!IMPORTANT]  
 > Using this function will enable quiet mode which might impact your power usage and the performance of your heatpump.
 
 <details>
