@@ -31,6 +31,7 @@ on System#Boot then
     #allowCalcHeatCurve = 0;
     #allowSetQuietMode = 0;
     #allowshiftOnOpenTherm = 0;
+    #allowSetMaxPumpDuty = 0;
 
     #chEnable = -1;
     #maxTa = -1;
@@ -39,6 +40,8 @@ on System#Boot then
     #chEnableCntr = -1;
     #chDisableCntr = -1;
     #chShiftHelper = 2;
+    #pumpDutyHelper = -1;
+    #maxPumpDuty = 85;
     setTimer(1,10);
 end
 
@@ -47,6 +50,7 @@ on timer=1 then
     syncOpenTherm();
     setQuietMode();
     shiftOnOpenTherm();
+    setMaxPumpDuty();
     setTimer(1,30);
 end
 ```
@@ -174,6 +178,59 @@ on setQuietMode then
                     #quietModeHelper = 0;
                     #quietModePrevious = #quietMode;
                     @SetQuietMode = #quietMode;
+                end
+            end
+        end
+    end
+end
+```
+
+</details>
+
+### setMaxPumpDuty
+
+This function adjust the pump duty based on the state of the heatpump and the outside temperature.
+
+<details>
+
+<summary>setMaxPumpDuty</summary>
+
+```LUA
+on setMaxPumpDuty then
+    if #allowSetMaxPumpDuty == 1 then
+        #pumpDutyHelper = #pumpDutyHelper + 1;
+        if #pumpDutyHelper == 6 then
+            #pumpDutyHelper = 0;
+            if @ThreeWay_Valve_State == 1 && @Max_Pump_Duty != 220 then
+                @SetMaxPumpDuty = 220;
+            end
+            if @ThreeWay_Valve_State == 0 && @Heatpump_State == 1 then
+                if @Outside_Temp < 10 then
+                    $MPF = 11;
+                else
+                    $MPF = 10;
+                end
+                if @Outside_Temp < 5 then
+                    $MPF = 12;
+                end
+                if @Outside_Temp < 2 then
+                    $MPF = 13;
+                end
+                if @Compressor_Freq == 0 then
+                    $MPF = 8;
+                end
+                if @Pump_Flow < $MPF then
+                    #maxPumpDuty = #maxPumpDuty + 5;
+                else
+                    if @Pump_Flow > $MPF + 1 then
+                        #maxPumpDuty = #maxPumpDuty - 1;
+                    end
+                end
+                if #maxPumpDuty > 140 then
+                    #maxPumpDuty = 140;
+                end
+                if @Max_Pump_Duty != #maxPumpDuty then
+                    @SetMaxPumpDuty = #maxPumpDuty;
                 end
             end
         end
