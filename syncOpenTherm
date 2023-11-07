@@ -1,16 +1,3 @@
-on System#Boot then
-    #allowSyncOT = 1;
-
-    #chEnable = -1;
-    #maxTa = -1;
-    setTimer(1,10);
-end
-
-on timer=1 then
- syncOpenTherm();
- setTimer(1,15);
-end
-
 on syncOpenTherm then
     if #allowSyncOT == 1 then
         ?outletTemp = @Main_Outlet_Temp;
