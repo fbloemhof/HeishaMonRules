@@ -1,0 +1,14 @@
+on System#Boot then
+    #allowSyncOT = 1;
+    #allowCalcHeatCurve = 1;
+
+    #chEnable = -1;
+    #maxTa = -1;
+    setTimer(1,10);
+end
+
+on timer=1 then
+    syncOpenTherm();
+    calcHeatCurve();
+    setTimer(1,15);
+end
