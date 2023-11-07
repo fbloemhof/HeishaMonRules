@@ -1,12 +1,16 @@
 # HeishaMonRules
 
-## yada
+## Some introduction
 
-yada yada
+yada yada rules, HM repo, integrations, etc.
+
+## Instuctions
+
+You can pick and mix the functions you like. To start you always need the `[System#Boot]`(/#on-systemboot) section, this is where the basics are configured.
 
 ### on System#Boot
 
-The first section of your ruleset. Here you can confiugre some settings and are the global variables defined.
+The first section of your ruleset. Here you can confiugre some settings and are the global variables defined. Default all functions are disabled (the `#allow` variabled), you can enable them by setting `0` to `1`.
 
 <details>
 
