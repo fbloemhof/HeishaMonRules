@@ -6,7 +6,7 @@ yada yada rules, HM repo, integrations, etc.
 
 ## Instuctions
 
-You can pick and mix the functions you like. To start you always need the `[System#Boot]`(/#on-systemboot) section, this is where the basics are configured.
+You can pick and mix the functions you like. To start you always need the [`System#Boot`](#on-systemboot) section, this is where the basics are configured.
 
 ### on System#Boot
 
