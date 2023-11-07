@@ -24,8 +24,8 @@ on System#Boot then
 
     #chEnable = -1;
     #maxTa = -1;
-    #silentModeHelper = 1;
-    #silentModePrevious = -1;
+    #quietModeHelper = 1;
+    #quietModePrevious = -1;
     setTimer(1,10);
 end
 
@@ -127,34 +127,34 @@ This function sets the quiet mode based on
 
 ```LUA
 on timer=2 then
-    #silentModeHelper = 1;
-    #silentMode = 0;
+    #quietModeHelper = 1;
+    #quietMode = 0;
 end
 
 on setQuietMode then
     if #allowSetQuietMode == 1 then
         if isset(@Outside_Temp) && isset(@Heatpump_State) then
-            if #silentModeHelper == 1 then
+            if #quietModeHelper == 1 then
                 if @Outside_Temp < 2 then
                     if %hour > 22 || %hour < 7 then
-                        #silentMode = 1;
+                        #quietMode = 1;
                     else
-                        #silentMode = 0;
+                        #quietMode = 0;
                     end
                 end
                 if @Outside_Temp < 5 then
-                    #silentMode = 1;
+                    #quietMode = 1;
                 end
                 if @Outside_Temp < 10 then
-                    #silentMode = 2;
+                    #quietMode = 2;
                 else
-                    #silentMode = 3;
+                    #quietMode = 3;
                 end
-                if #silentModePrevious != #silentMode && @Heatpump_State == 1 then
+                if #quietModePrevious != #quietMode && @Heatpump_State == 1 then
                     setTimer(2, 900);
-                    #silentModeHelper = 0;
-                    #silentModePrevious = #silentMode;
-                    @SetQuietMode = #silentMode;
+                    #quietModeHelper = 0;
+                    #quietModePrevious = #quietMode;
+                    @SetQuietMode = #quietMode;
                 end
             end
         end
