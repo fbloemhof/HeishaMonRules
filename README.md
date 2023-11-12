@@ -158,20 +158,20 @@ on setQuietMode then
     if #allowSetQuietMode == 1 then
         if isset(@Outside_Temp) && isset(@Heatpump_State) then
             if #quietModeHelper == 1 then
+                if @Outside_Temp < 13 then
+                    #quietMode = 1;
+                else
+                    #quietMode = 2;
+                end
+                if @Outside_Temp < 8 then
+                    #quietMode = 0;
+                end
                 if @Outside_Temp < 2 then
                     if %hour > 22 || %hour < 7 then
                         #quietMode = 1;
                     else
                         #quietMode = 0;
                     end
-                end
-                if @Outside_Temp < 5 then
-                    #quietMode = 1;
-                end
-                if @Outside_Temp < 10 then
-                    #quietMode = 2;
-                else
-                    #quietMode = 3;
                 end
                 if #quietModePrevious != #quietMode && @Heatpump_State == 1 then
                     setTimer(2, 900);
